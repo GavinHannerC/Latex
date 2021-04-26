@@ -1,0 +1,121 @@
+\documentclass[fontsize=12]{article}
+
+\pagestyle{empty}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{rotating}
+\usepackage{enumerate}
+\usepackage[normalem]{ulem}
+
+%\usepackage{color}
+%\usepackage{listings}
+
+\newcommand{\kB}{k_{\mathrm{B}}}
+\newcommand{\kT}{\kB T}
+
+\newcommand{\vek}[1]{\boldsymbol{#1}}          % vector symbol
+\newcommand{\dif}{\mathrm{d}}                  % the d in integrals
+\newcommand{\me}{\mathrm{e}}                   % Euler's e
+\newcommand{\vekprod}{\! \cdot \!}
+\newcommand{\eexp}[1]{\me^{\displaystyle #1}}
+\newcommand{\eeexp}[1]{\me^{#1}}
+\newcommand{\eeeexp}[1]{\exp \left( #1 \right)}
+\newcommand{\mean}[1]{\left<#1\right>}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\orderof}[1]{\mathcal{O}\left(#1\right)}
+\def\Real{\hbox{I\kern-.1667em\hbox{R}}}
+\newcommand{\ffrac}[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\grad}{\vek{\nabla}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\setlength{\oddsidemargin}{0.25cm}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{8.9in}
+
+\newcounter{problemcounter}  
+\newenvironment{problemlist}
+ {\begin{list}{\textbf{Problem \arabic{problemcounter}.}~}{\usecounter{problemcounter} \labelsep=0em \labelwidth=0em \leftmargin=0em \itemindent=0em}}
+ {\end{list}}
+
+
+\begin{document}
+\begin{center}
+\textbf{Homework Set 4} \\
+Chemistry 553, Spring 2021 \\
+Instructor: Lutz Maibaum \\
+\vspace{1em}
+\textbf{Due Friday, April 30th}
+\end{center}
+
+%\lstset{frame=shadowbox, rulesepcolor=\color{blue}}
+%\lstinputlisting{/Users/lutz/c/python/ljmd/ljmd.py}
+
+\begin{problemlist}
+
+\item Consider a system with two degrees of freedom, $x$ and $y$, in which the energy $U$ is quadratic in $y$ (with some spring constant $k$) and the coupling between the $x$ and $y$ is linear in $y$. In other words, the energy function can be written as
+\begin{equation}
+U(x,y) = f(x) + g(x) y + \ffrac{1}{2} k y^2 \label{eq:energy}
+\end{equation}
+where $f$ and $g$ are arbitrary functions.
+\begin{enumerate}[(a)~]
+\item In the canonical ensemble, the energy \eqref{eq:energy} determines the joint probability distribution of $x$ and $y$, 
+\begin{equation*}
+P(x,y) = \ffrac{1}{Z} \eexp{- \beta U (x,y)} ,
+\end{equation*}
+where $\beta = 1 / \kT$ and $Z$ is the configuration integral (the normalization constant for the probability). Find the probability of $x$ alone by integrating over $y$:
+\begin{equation*}
+P_{\mathrm{x}}(x) = \int_{-\infty}^\infty \dif y \, P(x,y)
+\end{equation*}
+Then convert this distribution into an effective (free) energy that depends on $x$ alone by evaluating
+\begin{equation*}
+U_{\mathrm{eff}}(x) = - \kT \ln P_{\mathrm{x}}(x) .
+\end{equation*}
+
+\item Consider the case where $y$ always adopts the value to minimize the energy for a given $x$. In this case $y$ is uniquely determined by $x$, so that the energy effectively depends only on $x$:
+\begin{equation*}
+U_\mathrm{eff} (x) = U(x, y(x))
+\end{equation*}
+Calculate the effective energy $U_\mathrm{eff} (x) $.
+
+\item Compare your results from part (a) and (b). 
+\end{enumerate}
+
+\item Consider a fluid of particles with pairwise additive interactions $u(r)$ and pair correlation function $g(r)$. Let's pick two particles (for convenience we'll pick particle 1 and particle 2), and we turn off the pairwise interaction between those. As far as particle 1 is concerned, particle 2 no longer exists, but particle 1 sees a hole (or \emph{cavity}) where particle 2 used to be (and vice versa). Show that the probability of finding particles 1 and 2 at a distance $r$ is proportional to the cavity function $y(r) = \eexp{\beta u(r)}g(r)$.
+
+\item We have encountered in class the density field
+\begin{equation*}
+\rho(\vek{r}) = \sum_{i=1}^N \delta \left(\vek{r} - \vek{r}_i \right) .
+\end{equation*}
+We can define a field $\delta \rho(\vek{r})$ that measures the deviations of the current density form the average density:
+\begin{equation*}
+\delta\rho(\vek{r}) = \rho(\vek{r}) - \mean{\rho(\vek{r})}
+\end{equation*}
+Show that the correlations of this field can be expressed in terms of the pair correlation function as
+\begin{equation*}
+ \mean{\delta\rho(\vek{r}) \delta\rho(\vek{r'})}
+ =
+ \rho \, \delta \left( \vek{r}-\vek{r}' \right) + \rho^2 \left[ g\left(\vek{r},\vek{r}' \right)-1 \right] .
+\end{equation*}
+This function is also sometimes called the response function $\chi(\vek{r},\vek{r}')$.
+
+\item We defined the structure factor $S(\vek{k}) = \mean{\tilde{\rho}(\vek{k}) \tilde{\rho}(-\vek{k})  }/N$, where $\tilde{\rho}(\vek{k}) = \int \dif\vek{r}\, \eexp{-i \vek{k} \vek{r}} \rho(\vek{r})$ is the Fourier transform of the density field $\rho(\vek{r}) = \sum_{i=1}^N \delta(\vek{r} - \vek{r}_i)$. Show that the structure factor is related to the pair correlation function $g(\vek{r})$ by the relationship
+\begin{equation*}
+S(\vek{k}) = 1 + \rho \int \dif\vek{r}\, \eexp{-i\vek{k}\vek{r}} g(\vek{r}) .
+\end{equation*}
+
+\item Work through the attached notebook "Molecular Dynamics III - Condensed Systems". It contains 4 exercises that you should do and turn in.
+
+\end{problemlist}  % enumeration of problems
+
+%\begin{enumerate}[(a)~]
+%\item
+%\end{enumerate}
+
+\end{document}
